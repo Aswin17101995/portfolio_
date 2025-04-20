@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Aswin's Portfolio - Full Stack Developer" />
+    <meta name="author" content="Aswin Srinivasan" />
+    <meta property="og:title" content="Aswin's Portfolio - Full Stack Developer" />
+    <meta property="og:description" content="A passionate Full Stack Developer. I code, I build, I deploy!" />
+    <meta property="og:image" content="path-to-image.jpg" />
+    <meta property="og:url" content="https://your-portfolio.com" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Aswin's Portfolio - Full Stack Developer" />
+    <meta name="twitter:description" content="A passionate Full Stack Developer. I code, I build, I deploy!" />
+    <meta name="twitter:image" content="path-to-image.jpg" />
+    <title>Aswin's Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .animate-gradient {
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .typing {
+            font-weight: 600;
+            display: inline-block;
+            border-right: 3px solid white;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 10s steps(20, end) infinite, blinkCaret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            0% {
+                width: 0;
+            }
+
+            50% {
+                width: 100%;
+            }
+
+            100% {
+                width: 0;
+            }
+        }
+
+        @keyframes blinkCaret {
+
+            from,
+            to {
+                border-color: transparent;
+            }
+
+            50% {
+                border-color: white;
+            }
+        }
+
+        /* For the slogan text size */
+        .slogan {
+            font-size: 3rem;
+            font-weight: 600;
+        }
+
+        /* Hover Effect on Skills */
+        .skill-card {
+            transition: all 0.3s ease;
+            padding: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(128, 90, 213, 0.3);
+            text-align: center;
+        }
+
+        .skill-card:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 20px rgba(128, 90, 213, 0.5);
+        }
+
+        /* Category headers */
+        .category-header {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            width: 30px;
+            height: 25px;
+        }
+
+        .hamburger div {
+            width: 100%;
+            height: 4px;
+            background-color: #333;
+            border-radius: 5px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .hamburger.open div:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.open div:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.open div:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Sliding Menu */
+        .sliding-menu {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: #fff;
+            transition: left 0.3s ease;
+            z-index: 999;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            padding-top: 2rem;
+            padding-left: 1rem;
+        }
+
+        .sliding-menu.open {
+            left: 0;
+        }
+
+        .sliding-menu a {
+            display: block;
+            padding: 1rem;
+            font-size: 1.25rem;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+
+        .sliding-menu a:hover {
+            background-color: #f3f4f6;
+        }
+
+        /* Close icon for sidebar */
+        .close-icon {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            cursor: pointer;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .skill-card {
+            @apply bg-white shadow-lg shadow-purple-300 rounded-lg p-4 text-center hover:scale-105 transition-transform duration-300;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+    <!-- Hamburger Icon for Small Screens -->
+    <div class="md:hidden p-6" onclick="toggleMenu()">
+        <div class="hamburger" id="hamburger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <!-- Sliding Sidebar -->
+    <div class="sliding-menu" id="sliding-menu">
+        <div class="close-icon" onclick="toggleMenu()">×</div>
+        <nav class="flex flex-col">
+            <a href="#about" onclick="toggleMenu()" class="hover:text-indigo-500">About</a>
+            <a href="#skills" onclick="toggleMenu()" class="hover:text-indigo-500">Skills</a>
+            <a href="#projects" onclick="toggleMenu()" class="hover:text-indigo-500">Projects</a>
+            <a href="#experience" onclick="toggleMenu()" class="hover:text-indigo-500">Experience</a>
+            <a href="#education" onclick="toggleMenu()" class="hover:text-indigo-500">Education</a>
+            <a href="#certificates" onclick="toggleMenu()" class="hover:text-indigo-500">Certificates</a>
+            <a href="#mini-projects" onclick="toggleMenu()" class="hover:text-indigo-500">Mini Projects</a>
+        </nav>
+    </div>
+
+    <!-- Sidebar for Large Screens -->
+    <aside class="fixed top-0 left-0 h-full w-52 bg-white shadow-xl z-50 px-4 py-6 hidden md:block">
+        <h1 class="text-2xl font-bold text-indigo-600 mb-10">Aswin Srinivasan</h1>
+        <nav class="flex flex-col space-y-4 text-lg">
+            <a href="#about" class="hover:text-indigo-500">About</a>
+            <a href="#skills" class="hover:text-indigo-500">Skills</a>
+            <a href="#projects" class="hover:text-indigo-500">Projects</a>
+            <a href="#experience" class="hover:text-indigo-500">Experience</a>
+            <a href="#education" class="hover:text-indigo-500">Education</a>
+            <a href="#certificates" class="hover:text-indigo-500">Certificates</a>
+            <a href="#mini-projects" class="hover:text-indigo-500">Mini Projects</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="md:ml-52">
+        <!-- About Section -->
+        <section id="about"
+            class="relative min-h-screen flex items-center justify-center px-4 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 animate-gradient bg-blur">
+            <div class="absolute inset-0 bg-white/10 backdrop-blur-md rounded-xl z-0"></div>
+
+            <div class="relative z-10 text-center max-w-4xl text-white">
+                <h1 class="text-4xl md:text-5xl font-extrabold mb-2">Aswin Srinivasan</h1>
+                <h2 class="text-2xl md:text-3xl font-bold mb-6">Software Engineer</h2>
+
+                <!-- Typing Animation -->
+                <div class="text-xl md:text-2xl font-semibold h-12 mb-6">
+                    <span class="typing-text"></span>
+                </div>
+
+                <p class="text-md md:text-lg text-white/90 max-w-2xl mx-auto">
+                    I’m a passionate full stack developer who loves solving real-world problems using code. I specialize
+                    in building high-performance web applications using React, Node.js, and PostgreSQL. I enjoy shipping
+                    complete products from design to deployment.
+                </p>
+            </div>
+        </section>
+        <!-- Skills Section -->
+        <!-- Skills Section -->
+        <section id="skills" class="py-16 px-6 bg-white">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-gray-800">Skills</h2>
+
+                <!-- Frontend -->
+                <h3 class="text-xl md:text-2xl font-bold text-purple-700 mb-6">Frontend</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
+                    <div class="skill-card">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"
+                            class="w-10 h-10 mb-2 mx-auto" />
+                        <p>HTML</p>
+                    </div>
+                    <div class="skill-card">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"
+                            class="w-10 h-10 mb-2 mx-auto" />
+                        <p>CSS</p>
+                    </div>
+                    <div class="skill-card">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+                            class="w-10 h-10 mb-2 mx-auto" />
+                        <p>ReactJS</p>
+                    </div>
+                    <div class="skill-card">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg"
+                            class="w-10 h-10 mb-2 mx-auto bg-white rounded-full p-1" />
+                        <p>NextJS</p>
+                    </div>
+                </div>
+
+                <!-- Backend -->
+                <h3 class="text-xl md:text-2xl font-bold text-purple-700 mb-6">Backend</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
+                    <div class="skill-card">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"
+                            class="w-10 h-10 mb-2 mx-auto" />
+                        <p>NodeJS</p>
+                    </div>
+                    <div class="skill-card">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg"
+                            class="w-10 h-10 mb-2 mx-auto bg-white rounded-full p-1" />
+                        <p>Express</p>
+                    </div>
+                    <div class="skill-card">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg"
+                            class="w-10 h-10 mb-2 mx-auto" />
+                        <p>Spring Boot</p>
+                    </div>
+                </div>
+
+                <!-- Database -->
+                <h3 class="text-xl md:text-2xl font-bold text-purple-700 mb-6">Database</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
+                    <div class="skill-card">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg"
+                            class="w-10 h-10 mb-2 mx-auto" />
+                        <p>PostgreSQL</p>
+                    </div>
+                    <div class="skill-card">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg"
+                            class="w-10 h-10 mb-2 mx-auto" />
+                        <p>GraphQL</p>
+                    </div>
+                    <div class="skill-card">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg"
+                            class="w-10 h-10 mb-2 mx-auto" />
+                        <p>MongoDB</p>
+                    </div>
+                </div>
+
+                <!-- Programming -->
+                <h3 class="text-xl md:text-2xl font-bold text-purple-700 mb-6">Programming</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div class="skill-card">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"
+                            class="w-10 h-10 mb-2 mx-auto" />
+                        <p>Java</p>
+                    </div>
+                    <div class="skill-card">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
+                            class="w-10 h-10 mb-2 mx-auto" />
+                        <p>JavaScript</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-16 px-6 bg-gray-50">
+            <div class="max-w-6xl mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-gray-800">Projects</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Project Card -->
+                    <div
+                        class="bg-white/40 backdrop-blur-md border border-white/30 rounded-xl p-6 shadow-lg hover:scale-105 transition-transform duration-300">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png" alt="Cart"
+                            class="w-12 h-12 mb-4 mx-auto">
+                        <h3 class="text-xl font-semibold mb-2">Add/Remove from Cart</h3>
+                        <p class="text-gray-700 text-sm">Built dynamic cart functionality using Redux, supporting
+                            real-time updates and currency selection.</p>
+                    </div>
+
+                    <div
+                        class="bg-white/40 backdrop-blur-md border border-white/30 rounded-xl p-6 shadow-lg hover:scale-105 transition-transform duration-300">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1029/1029183.png" alt="Checkout"
+                            class="w-12 h-12 mb-4 mx-auto">
+                        <h3 class="text-xl font-semibold mb-2">Full Checkout Flow</h3>
+                        <p class="text-gray-700 text-sm">Developed complete multi-step checkout flow with validation,
+                            promo codes, and Stripe integration.</p>
+                    </div>
+
+                    <div
+                        class="bg-white/40 backdrop-blur-md border border-white/30 rounded-xl p-6 shadow-lg hover:scale-105 transition-transform duration-300">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3281/3281297.png" alt="Subscription"
+                            class="w-12 h-12 mb-4 mx-auto">
+                        <h3 class="text-xl font-semibold mb-2">Stripe Subscription</h3>
+                        <p class="text-gray-700 text-sm">Implemented monthly/yearly subscriptions with webhooks for
+                            cancellation, upgrades, and renewals.</p>
+                    </div>
+
+                    <div
+                        class="bg-white/40 backdrop-blur-md border border-white/30 rounded-xl p-6 shadow-lg hover:scale-105 transition-transform duration-300">
+                        <img src="https://cdn-icons-png.flaticon.com/512/4072/4072692.png" alt="Library"
+                            class="w-12 h-12 mb-4 mx-auto">
+                        <h3 class="text-xl font-semibold mb-2">Library Page</h3>
+                        <p class="text-gray-700 text-sm">Created a course/video library with filters, search, and
+                            personalized recommendations.</p>
+                    </div>
+
+                    <div
+                        class="bg-white/40 backdrop-blur-md border border-white/30 rounded-xl p-6 shadow-lg hover:scale-105 transition-transform duration-300">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1827/1827349.png" alt="Bookmark"
+                            class="w-12 h-12 mb-4 mx-auto">
+                        <h3 class="text-xl font-semibold mb-2">Bookmark Feature</h3>
+                        <p class="text-gray-700 text-sm">Enabled bookmarking of videos and tests with user-specific
+                            persistence and UI indicators.</p>
+                    </div>
+
+                    <div
+                        class="bg-white/40 backdrop-blur-md border border-white/30 rounded-xl p-6 shadow-lg hover:scale-105 transition-transform duration-300">
+                        <img src="https://cdn-icons-png.flaticon.com/512/4015/4015466.png" alt="Pricing"
+                            class="w-12 h-12 mb-4 mx-auto">
+                        <h3 class="text-xl font-semibold mb-2">Pricing Page</h3>
+                        <p class="text-gray-700 text-sm">Developed a responsive pricing UI with toggleable plans,
+                            comparisons, and animation transitions.</p>
+                    </div>
+
+                    <div
+                        class="bg-white/40 backdrop-blur-md border border-white/30 rounded-xl p-6 shadow-lg hover:scale-105 transition-transform duration-300">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3595/3595455.png" alt="Campaign"
+                            class="w-12 h-12 mb-4 mx-auto">
+                        <h3 class="text-xl font-semibold mb-2">Campaign Module</h3>
+                        <p class="text-gray-700 text-sm">Built a module to launch campaigns with discounts and
+                            limited-time deals without developer support.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Work Experience Section -->
+        <section id="experience" class="py-16 px-6 bg-white">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-10 text-gray-800">Work Experience</h2>
+
+                <div class="space-y-6 text-left">
+                    <!-- Latest Experience -->
+                    <div
+                        class="bg-white/60 backdrop-blur-md border border-gray-200 rounded-xl shadow-md p-6 hover:scale-[1.02] transition-transform duration-300">
+                        <h3 class="text-xl font-semibold text-gray-900">Specialist Software Engineering</h3>
+                        <p class="text-gray-700">LTIMindtree • Jan 2025 – Present</p>
+                    </div>
+
+                    <!-- Previous Experience -->
+                    <div
+                        class="bg-white/60 backdrop-blur-md border border-gray-200 rounded-xl shadow-md p-6 hover:scale-[1.02] transition-transform duration-300">
+                        <h3 class="text-xl font-semibold text-gray-900">Software Developer</h3>
+                        <p class="text-gray-700">Whizlabs Software • Dec 2021 – Dec 2024</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Career Gap Section -->
+        <section id="career-gap" class="py-16 px-6 bg-grey-50">
+            <div class="max-w-5xl mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-10 text-gray-800">GATE CSE(2018–2021)</h2>
+                <p class="text-gray-600 text-md mb-8 max-w-2xl mx-auto">
+                    During this period, I dedicated myself to preparing for the GATE CSE exam Unfortunatly couldnt get
+                    into desired University but gained strong command over the following core computer science concepts:
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    <div
+                        class="bg-white shadow-md shadow-purple-300 rounded-xl p-6 hover:scale-105 transition-transform duration-300 text-center">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2620/2620637.png" alt="DSA"
+                            class="w-12 h-12 mx-auto mb-3">
+                        <h3 class="text-xl font-semibold text-gray-800">Data Structures</h3>
+                    </div>
+
+                    <div
+                        class="bg-white shadow-md shadow-purple-300 rounded-xl p-6 hover:scale-105 transition-transform duration-300 text-center">
+                        <img src="https://cdn-icons-png.flaticon.com/512/929/929426.png" alt="Algo"
+                            class="w-12 h-12 mx-auto mb-3">
+                        <h3 class="text-xl font-semibold text-gray-800">Algorithms</h3>
+                    </div>
+
+                    <div
+                        class="bg-white shadow-md shadow-purple-300 rounded-xl p-6 hover:scale-105 transition-transform duration-300 text-center">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3064/3064197.png" alt="Networks"
+                            class="w-12 h-12 mx-auto mb-3">
+                        <h3 class="text-xl font-semibold text-gray-800">Computer Networks</h3>
+                    </div>
+
+                    <div
+                        class="bg-white shadow-md shadow-purple-300 rounded-xl p-6 hover:scale-105 transition-transform duration-300 text-center">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3371/3371497.png" alt="DB"
+                            class="w-12 h-12 mx-auto mb-3">
+                        <h3 class="text-xl font-semibold text-gray-800">Databases</h3>
+                    </div>
+
+                    <div
+                        class="bg-white shadow-md shadow-purple-300 rounded-xl p-6 hover:scale-105 transition-transform duration-300 text-center">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2889/2889733.png" alt="OS"
+                            class="w-12 h-12 mx-auto mb-3">
+                        <h3 class="text-xl font-semibold text-gray-800">Operating Systems</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+        <!-- Education Section -->
+        <section id="education" class="py-16 px-6 bg-white">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-10 text-gray-800">Education</h2>
+
+                <div
+                    class="bg-white/50 backdrop-blur-md border border-gray-200 rounded-xl shadow-md p-6 flex flex-col items-center hover:scale-105 transition-transform duration-300">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" alt="Degree Icon"
+                        class="w-16 h-16 mb-4" />
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-2">B.Tech in Electronics and Communication
+                        Engineering</h3>
+                    <p class="text-gray-700 text-lg">Amrita Vishwa Vidyapeetham, Amrita School of Engineering,
+                        Coimbatore 
+                </div>
+            </div>
+        </section>
+
+        <!-- Certificates Section -->
+        <section id="certificates" class="py-16 px-6 bg-gray-50">
+            <div class="max-w-5xl mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-10 text-gray-800">Certificates</h2>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    <!-- Certificate Card -->
+                    <a href="https://www.coursera.org/account/accomplishments/verify/4LVV769VF4Y7" target="_blank"
+                        class="block bg-white shadow-md shadow-purple-300 rounded-xl p-6 hover:scale-105 transition-transform duration-300 text-left">
+                        <h3 class="text-lg font-semibold text-gray-800">Advanced React</h3>
+                        <p class="text-sm text-purple-600 mt-2">Coursera</p>
+                    </a>
+
+                    <a href="https://www.coursera.org/account/accomplishments/verify/2L3GCB6SN8XF" target="_blank"
+                        class="block bg-white shadow-md shadow-purple-300 rounded-xl p-6 hover:scale-105 transition-transform duration-300 text-left">
+                        <h3 class="text-lg font-semibold text-gray-800">React Basics</h3>
+                        <p class="text-sm text-purple-600 mt-2">Coursera</p>
+                    </a>
+
+                    <a href="https://www.coursera.org/account/accomplishments/verify/EH4JRXDRT2WG" target="_blank"
+                        class="block bg-white shadow-md shadow-purple-300 rounded-xl p-6 hover:scale-105 transition-transform duration-300 text-left">
+                        <h3 class="text-lg font-semibold text-gray-800">Programming with JavaScript</h3>
+                        <p class="text-sm text-purple-600 mt-2">Coursera</p>
+                    </a>
+
+                    <a href="https://www.coursera.org/account/accomplishments/verify/IT5YEH3XTLSQ" target="_blank"
+                        class="block bg-white shadow-md shadow-purple-300 rounded-xl p-6 hover:scale-105 transition-transform duration-300 text-left">
+                        <h3 class="text-lg font-semibold text-gray-800">HTML & CSS in Depth</h3>
+                        <p class="text-sm text-purple-600 mt-2">Coursera</p>
+                    </a>
+
+                    <a href="https://www.guvi.in/verify-certificate?id=73a9op61n160230209" target="_blank"
+                        class="block bg-white shadow-md shadow-purple-300 rounded-xl p-6 hover:scale-105 transition-transform duration-300 text-left">
+                        <h3 class="text-lg font-semibold text-gray-800">Full Stack Developer Program</h3>
+                        <p class="text-sm text-purple-600 mt-2">GUVI Zen Class</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mini Projects Section -->
+        <!-- Mini Projects Section -->
+        <section id="mini-projects" class="py-16 px-6 bg-white">
+            <div class="max-w-6xl mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-gray-800">Mini Projects</h2>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+
+                    <!-- Marvel Super Hero App -->
+                    <a href="https://aswin17101995.github.io/marvel/index.html" target="_blank"
+                        class="block bg-white shadow-md shadow-purple-300 rounded-xl p-6 hover:scale-105 transition-transform duration-300 text-left">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Marvel Super Hero App</h3>
+                        <p class="text-sm text-gray-600">
+                            Using Marvel API, created a superhero profile app with search functionality and an option to
+                            add heroes to a favorites list.
+                        </p>
+                    </a>
+
+                    <!-- Ping Pong Game -->
+                    <a href="https://pingpongdemo.vercel.app/" target="_blank"
+                        class="block bg-white shadow-md shadow-purple-300 rounded-xl p-6 hover:scale-105 transition-transform duration-300 text-left">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Ping Pong Game (Next.js)</h3>
+                        <p class="text-sm text-gray-600">
+                            Created a Ping Pong game using Next.js and requestAnimationFrame API. Smooth gameplay and
+                            deployed on Vercel.
+                        </p>
+                    </a>
+
+                    <!-- Pomodoro App -->
+                    <a href="https://aswin17101995.github.io/pomodoro_app/" target="_blank"
+                        class="block bg-white shadow-md shadow-purple-300 rounded-xl p-6 hover:scale-105 transition-transform duration-300 text-left">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Pomodoro Timer App</h3>
+                        <p class="text-sm text-gray-600">
+                            Built using `setInterval` to track work/break sessions with visual feedback. Simple time
+                            management tool.
+                        </p>
+                    </a>
+
+                    <!-- Stop Watch Animation -->
+                    <a href="https://aswin17101995.github.io/jsstopwatchanimated/" target="_blank"
+                        class="block bg-white shadow-md shadow-purple-300 rounded-xl p-6 hover:scale-105 transition-transform duration-300 text-left">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Animated Stop Watch</h3>
+                        <p class="text-sm text-gray-600">
+                            A JavaScript-based stopwatch with animated second-hand dial using HTML/CSS transitions.
+                            Start, stop, reset included.
+                        </p>
+                    </a>
+
+                    <!-- CountryList App -->
+                    <a href="https://country-react-js-mu.vercel.app/" target="_blank"
+                        class="block bg-white shadow-md shadow-purple-300 rounded-xl p-6 hover:scale-105 transition-transform duration-300 text-left">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">CountryList App (Next.js)</h3>
+                        <p class="text-sm text-gray-600">
+                            Built using Next.js, this app fetches and displays country data including flags and basic
+                            details. Includes filter and search features.
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer Section -->
+        <footer class="bg-white border-t border-gray-200 py-10 px-6">
+            <div class="max-w-6xl mx-auto text-center">
+
+                <!-- Contact Info -->
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Contact Me</h2>
+                <p class="text-gray-600 text-lg mb-6">
+                    📧 <a href="mailto:aswinsrini1@gmail.com"
+                        class="text-purple-600 hover:underline">aswinsrini1@gmail.com</a>
+                </p>
+
+                <!-- Download Resume Button -->
+                <a href="https://aswin17buck.s3.us-east-1.amazonaws.com/resume.pdf" target="_blank" download
+                    class="inline-block bg-purple-600 text-white px-6 py-3 rounded-full font-medium text-lg shadow-md hover:bg-purple-700 transition duration-300">
+                    ⬇️ Download Resume
+                </a>
+
+                <!-- Copyright -->
+                <p class="mt-8 text-sm text-gray-500">&copy; 2025 Aswin Srinivasan. All rights reserved.</p>
+            </div>
+        </footer>
+
+
+    </main>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('sliding-menu');
+            const hamburger = document.getElementById('hamburger');
+            menu.classList.toggle('open');
+            hamburger.classList.toggle('open');
+        }
+
+        const phrases = ["I code", "I build", "I deploy"];
+        let currentPhrase = 0;
+        let char = 0;
+        const typingElement = document.querySelector(".typing-text");
+
+        const type = () => {
+            if (char <= phrases[currentPhrase].length) {
+                typingElement.innerHTML = phrases[currentPhrase].substring(0, char);
+                char++;
+                setTimeout(type, 100);
+            } else {
+                setTimeout(() => erase(), 1000);
+            }
+        };
+
+        const erase = () => {
+            if (char >= 0) {
+                typingElement.innerHTML = phrases[currentPhrase].substring(0, char);
+                char--;
+                setTimeout(erase, 50);
+            } else {
+                currentPhrase = (currentPhrase + 1) % phrases.length;
+                setTimeout(type, 200);
+            }
+        };
+
+        // Start typing effect after page load
+        document.addEventListener("DOMContentLoaded", () => {
+            type();
+        });
+
+    </script>
+</body>
+
+</html>
